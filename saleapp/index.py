@@ -11,18 +11,20 @@ def home():
 
 @app.route("/products")
 def products_list():
+    cates = utils.load_categories()
     cate_id = request.args.get("category_id")
     kw = request.args.get("keyword")
     fromPrice = request.args.get("fromPrice")
     toPrice = request.args.get("toPrice")
     product = utils.load_products(cate_id, kw=kw, fromPrice=fromPrice, toPrice=toPrice)
-    return render_template('products.html', products=product)
+    return render_template('products.html', products=product,categories=cates)
 
 
 @app.route("/products/<int:productsId>")
 def productsDetail(productsId):
+    cates = utils.load_categories()
     products= utils.getProductsId(productsId)
-    return render_template('detail.html', products=products)
+    return render_template('detail.html', products=products,categories=cates)
 
 
 
